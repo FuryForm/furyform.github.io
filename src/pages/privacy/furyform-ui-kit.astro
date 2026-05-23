@@ -1,0 +1,35 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title="FuryForm UI Kit Privacy" description="Privacy policy for the FuryForm UI Kit." />
+	</head>
+	<body>
+		<Header />
+		<main class="container">
+			<section class="page-intro">
+				<p class="hero-eyebrow">Privacy</p>
+				<h1>FuryForm UI Kit privacy policy</h1>
+				<p>The FuryForm UI Kit is a design system asset package. It does not collect personal data by itself, but it is designed to support privacy-conscious form experiences.</p>
+			</section>
+			<section class="feature-block">
+				<h2>What this covers</h2>
+				<ul>
+					<li>The UI Kit itself is static and client-side only.</li>
+					<li>Data collection is controlled by the host application using the kit.</li>
+					<li>Any form behavior should make privacy transparent to users.</li>
+				</ul>
+			</section>
+			<section class="feature-block">
+				<h2>When to use it</h2>
+				<p>Use the UI Kit for product experiences where forms are shown clearly, labels are explicit, and user trust is prioritized.</p>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
