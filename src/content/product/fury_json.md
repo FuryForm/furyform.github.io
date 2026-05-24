@@ -10,6 +10,7 @@ screenshots:
   - "../../assets/product/fury_json/screenshot_3.png"
   - "../../assets/product/fury_json/screenshot_4.png"
 playStoreLink: "https://play.google.com/store/apps/details?id=com.furyform.furyjson&pcampaignid=web_share"
+privacyPolicyLink: "/privacy/fury_json/"
 ---
 
 ## Key features

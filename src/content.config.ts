@@ -34,7 +34,13 @@ const product = defineCollection({
       playStoreLink: z.string().url().optional(),
       appStoreLink: z.string().url().optional(),
       windowsStoreLink: z.string().url().optional(),
+      privacyPolicyLink: z.string().optional(),
     }),
 });
 
-export const collections = { blog, product };
+const privacyPolicy = defineCollection({
+  loader: glob({ base: "./src/content/privacy_policy", pattern: "**/*.{md,mdx}" }),
+  schema: () => z.object({}).passthrough(),
+});
+
+export const collections = { blog, product, privacyPolicy };

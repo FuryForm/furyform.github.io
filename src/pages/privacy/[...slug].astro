@@ -1,0 +1,75 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+export async function getStaticPaths() {
+  const policies = await getCollection('privacyPolicy');
+  return policies.map((policy) => ({
+    params: { slug: policy.id },
+    props: policy,
+  }));
+}
+
+const policy = Astro.props;
+const { Content } = await render(policy);
+---
+
+<html lang="en">
+  <head>
+    <BaseHead
+      title={policy.data.title ?? `Privacy Policy — ${policy.id}`}
+      description={policy.data.description ?? 'Privacy policy'}
+    />
+    <style>
+      main {
+        width: calc(100% - 2rem);
+        max-width: 900px;
+        margin: auto;
+        padding: 3rem 1rem;
+      }
+      .article-header {
+        margin-bottom: 2rem;
+      }
+      .article-header h1 {
+        margin: 0;
+        font-size: clamp(2.5rem, 5vw, 4rem);
+      }
+      .article-header p {
+        margin-top: 1rem;
+        color: rgb(var(--gray));
+      }
+      .prose {
+        color: rgb(var(--gray-dark));
+        line-height: 1.85;
+      }
+      .prose a {
+        color: var(--accent);
+      }
+      .prose img {
+        max-width: 100%;
+      }
+      @media (max-width: 720px) {
+        main {
+          padding: 2rem 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <article>
+        <div class="article-header">
+          <h1>{policy.data.title ?? 'Privacy Policy'}</h1>
+          {policy.data.description && <p>{policy.data.description}</p>}
+        </div>
+        <div class="prose">
+          <Content />
+        </div>
+      </article>
+    </main>
+    <Footer />
+  </body>
+</html>
