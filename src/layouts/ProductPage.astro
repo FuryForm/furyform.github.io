@@ -1,319 +1,370 @@
 ---
-import { Image } from 'astro:assets';
-import type { CollectionEntry } from 'astro:content';
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import playStoreBadge from '../assets/store/play_store_badge.png';
-import appStoreBadge from '../assets/store/app_store_badge.png';
-import windowsStoreBadge from '../assets/store/windows_store_badge.png';
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import playStoreBadge from "../assets/store/play_store_badge.png";
+import appStoreBadge from "../assets/store/app_store_badge.png";
+import windowsStoreBadge from "../assets/store/windows_store_badge.png";
 
-type Props = CollectionEntry<'product'>['data'];
+type Props = CollectionEntry<"product">["data"];
 
 const {
-	title,
-	description,
-	pubDate,
-	updatedDate,
-	heroImage,
-	icon,
-	screenshots,
-	playStoreLink,
-	appStoreLink,
-	windowsStoreLink,
-	privacyPolicyLink,
+  title,
+  description,
+  pubDate,
+  updatedDate,
+  heroImage,
+  icon,
+  screenshots,
+  playStoreLink,
+  appStoreLink,
+  windowsStoreLink,
+  privacyPolicyLink,
 } = Astro.props;
 ---
 
 <html lang="en">
-	<head>
-		<BaseHead title={title} description={description} />
-		<style>
-			main {
-				width: calc(100% - 2em);
-				max-width: 900px;
-				margin: auto;
-				padding: 3em 1em;
-			}
-			.hero-image {
-				width: 100%;
-				margin-bottom: 2rem;
-				aspect-ratio: 16 / 9;
-				overflow: hidden;
-				border-radius: 20px;
-				box-shadow: var(--box-shadow);
-			}
-			.hero-image img {
-				display: block;
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-			}
-			.product-header {
-				display: flex;
-				align-items: center;
-				gap: 1rem;
-				margin-bottom: 1.5rem;
-			}
-			.product-page-icon {
-				width: 80px;
-				height: 80px;
-				border-radius: 22px;
-				overflow: hidden;
-				box-shadow: var(--box-shadow);
-				background: rgba(255, 255, 255, 0.05);
-				flex-shrink: 0;
-			}
-			.product-page-icon img {
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-			}
-			.product-header div > p {
-				margin-top: 1rem;
-			}
-			.store-links {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 0.85rem;
-				margin: 1.5rem 0 0;
-			}
-			.store-links a {
-				display: inline-flex;
-				align-items: center;
-				padding: 0.15rem;
-			}
-			.privacy-link {
-				display: inline-flex;
-				align-items: center;
-				color: var(--text);
-				border: 1px solid rgba(255, 255, 255, 0.08);
-				border-radius: 999px;
-				padding: 0.75rem 1rem;
-				text-decoration: none;
-				transition: background 180ms ease, border-color 180ms ease;
-			}
-			.privacy-link:hover,
-			.privacy-link:focus-visible {
-				background: rgba(255, 255, 255, 0.08);
-				border-color: rgba(255, 255, 255, 0.16);
-			}
-			.store-links img {
-				display: block;
-				width: auto;
-				max-height: 72px;
-				object-fit: contain;
-			}
-			.screenshot-grid {
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-				gap: 1rem;
-				margin-top: 2rem;
-			}
-			.screenshot-card {
-				position: relative;
-				aspect-ratio: 9 / 16;
-				overflow: hidden;
-				border-radius: 18px;
-				box-shadow: var(--box-shadow);
-				background: rgba(255, 255, 255, 0.03);
-			}
-			.screenshot-card a {
-				display: block;
-				width: 100%;
-				height: 100%;
-				cursor: zoom-in;
-			}
-			.screenshot-card img {
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-				transition: transform 180ms ease;
-			}
-			.screenshot-card:hover img {
-				transform: scale(1.03);
-			}
-			.screenshot-modal {
-				position: fixed;
-				top: 0;
-				left: 0;
-				width: 100vw;
-				height: 100vh;
-				display: grid;
-				place-items: center;
-				background: rgba(0, 0, 0, 0.75);
-				padding: 1.5rem;
-				opacity: 0;
-				pointer-events: none;
-				transition: opacity 180ms ease;
-				z-index: 50;
-			}
-			.screenshot-modal.visible {
-				opacity: 1;
-				pointer-events: auto;
-			}
-			.screenshot-modal-inner img {
-				max-width: 80vh;
-				max-height: 80vh;
-				width: auto;
-				height: auto;
-				object-fit: contain;
-				border-radius: 20px;
-				box-shadow: var(--box-shadow);
-			}
-			.modal-close {
-				position: absolute;
-				top: 1.25rem;
-				right: 1.25rem;
-				width: 42px;
-				height: 42px;
-				border: none;
-				border-radius: 50%;
-				background: rgba(0, 0, 0, 0.6);
-				color: white;
-				font-size: 1.25rem;
-				cursor: pointer;
-			}
-			.article-header {
-				margin-bottom: 2rem;
-			}
-			.article-header h1 {
-				margin: 0;
-				font-size: clamp(2.75rem, 5vw, 4.5rem);
-			}
-			.article-meta {
-				color: rgb(var(--gray));
-				margin: 0.75rem 0 0;
-			}
-			.prose {
-				color: rgb(var(--gray-dark));
-				line-height: 1.85;
-			}
-			.prose h2,
-			.prose h3,
-			.prose h4 {
-				color: rgb(var(--black));
-			}
-			.prose a {
-				color: var(--accent);
-			}
-			.prose img {
-				max-width: 100%;
-			}
-			@media (max-width: 720px) {
-				main {
-					padding: 2rem 1rem;
-				}
-			}
-		</style>
-	</head>
-	<body>
-		<Header />
-		<main>
-			<article>
-				<div class="article-header">
-					<div class="product-header">
-						{icon && (
-							<div class="product-page-icon">
-								<Image width={96} height={96} src={icon} alt={`${title} icon`} />
-							</div>
-						)}
-						<div>
-							<h1>{title}</h1>
-							{description && <p>{description}</p>}
-							<p class="article-meta">Published <time>{pubDate.toDateString()}</time></p>
-							{updatedDate && (
-								<p class="article-meta">Updated <time>{updatedDate.toDateString()}</time></p>
-							)}
-						</div>
-					</div>
-				</div>
-				{heroImage && (
-					<div class="hero-image">
-						<Image width={1200} height={675} src={heroImage} alt={title} />
-					</div>
-				)}
-				{(playStoreLink || appStoreLink || windowsStoreLink || privacyPolicyLink) && (
-					<div class="store-links">
-						{playStoreLink && (
-							<a href={playStoreLink} target="_blank" rel="noreferrer noopener">
-								<Image src={playStoreBadge} alt="Get it on Google Play" />
-							</a>
-						)}
-						{appStoreLink && (
-							<a href={appStoreLink} target="_blank" rel="noreferrer noopener">
-								<Image src={appStoreBadge} alt="Download on the App Store" />
-							</a>
-						)}
-						{windowsStoreLink && (
-							<a href={windowsStoreLink} target="_blank" rel="noreferrer noopener">
-								<Image src={windowsStoreBadge} alt="Get it from the Microsoft Store" />
-							</a>
-						)}
-						{privacyPolicyLink && (
-							<a class="privacy-link" href={privacyPolicyLink}>
-								View privacy policy
-							</a>
-						)}
-					</div>
-				)}
-				<div class="prose">
-					<slot />
-				</div>
-				{screenshots && screenshots.length > 0 && (
-					<div class="screenshot-grid">
-						{screenshots.map((screenshot) => (
-							<div class="screenshot-card" data-image={screenshot.src} data-alt={title} role="button" tabindex="0" aria-label="Open screenshot">
-								<Image
-									key={screenshot.src}
-									src={screenshot}
-									alt={title}
-								/>
-							</div>
-						))}
-					</div>
-				)}
-				<div class="screenshot-modal" id="screenshotModal" aria-hidden="true">
-					<button class="modal-close" type="button" aria-label="Close screenshot">×</button>
-					<div class="screenshot-modal-inner">
-						<img id="screenshotModalImage" src="" alt="" />
-					</div>
-				</div>
-				<script type="module">
-					const modal = document.getElementById('screenshotModal');
-					const modalImage = document.getElementById('screenshotModalImage');
-					const closeButton = modal.querySelector('.modal-close');
-					const cards = document.querySelectorAll('.screenshot-card');
-					const openModal = (src, alt) => {
-						modalImage.src = src;
-						modalImage.alt = alt;
-						modal.classList.add('visible');
-						modal.setAttribute('aria-hidden', 'false');
-					};
-					const closeModal = () => {
-						modal.classList.remove('visible');
-						modal.setAttribute('aria-hidden', 'true');
-						modalImage.removeAttribute('src');
-					};
-					cards.forEach((card) => {
-						card.addEventListener('click', () => openModal(card.dataset.image, card.dataset.alt));
-						card.addEventListener('keydown', (event) => {
-							if (event.key === 'Enter' || event.key === ' ') {
-								event.preventDefault();
-								openModal(card.dataset.image, card.dataset.alt);
-							}
-						});
-					});
-					closeButton.addEventListener('click', closeModal);
-					modal.addEventListener('click', (event) => {
-						if (event.target === modal) closeModal();
-					});
-					document.addEventListener('keydown', (event) => {
-						if (event.key === 'Escape' && modal.classList.contains('visible')) closeModal();
-					});
-				</script>
-			</article>
-		</main>
-		<Footer />
-	</body>
+  <head>
+    <BaseHead title={title} description={description} />
+    <style>
+      main {
+        width: calc(100% - 2em);
+        max-width: 900px;
+        margin: auto;
+        padding: 3em 1em;
+      }
+      .hero-image {
+        width: 100%;
+        margin-bottom: 2rem;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        border-radius: 20px;
+        box-shadow: var(--box-shadow);
+      }
+      .hero-image img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .product-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+      .product-page-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 22px;
+        overflow: hidden;
+        box-shadow: var(--box-shadow);
+        background: rgba(255, 255, 255, 0.05);
+        flex-shrink: 0;
+      }
+      .product-page-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .product-header div > p {
+        margin-top: 1rem;
+      }
+      .store-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.85rem;
+        margin: 1.5rem 0 0;
+      }
+      .store-links a {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.15rem;
+      }
+      .privacy-link {
+        display: inline-flex;
+        align-items: center;
+        color: var(--text);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 999px;
+        padding: 0.75rem 1rem;
+        text-decoration: none;
+        transition:
+          background 180ms ease,
+          border-color 180ms ease;
+      }
+      .privacy-link:hover,
+      .privacy-link:focus-visible {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.16);
+      }
+      .store-links img {
+        display: block;
+        width: auto;
+        max-height: 72px;
+        object-fit: contain;
+      }
+      .screenshot-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+      .screenshot-card {
+        position: relative;
+        aspect-ratio: 9 / 16;
+        overflow: hidden;
+        border-radius: 18px;
+        box-shadow: var(--box-shadow);
+        background: rgba(255, 255, 255, 0.03);
+      }
+      .screenshot-card a {
+        display: block;
+        width: 100%;
+        height: 100%;
+        cursor: zoom-in;
+      }
+      .screenshot-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 180ms ease;
+      }
+      .screenshot-card:hover img {
+        transform: scale(1.03);
+      }
+      .screenshot-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: grid;
+        place-items: center;
+        background: rgba(0, 0, 0, 0.75);
+        padding: 1.5rem;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 180ms ease;
+        z-index: 50;
+      }
+      .screenshot-modal.visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .screenshot-modal-inner img {
+        max-width: 80vh;
+        max-height: 80vh;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        border-radius: 20px;
+        box-shadow: var(--box-shadow);
+      }
+      .modal-close {
+        position: absolute;
+        top: 1.25rem;
+        right: 1.25rem;
+        width: 42px;
+        height: 42px;
+        border: none;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.6);
+        color: white;
+        font-size: 1.25rem;
+        cursor: pointer;
+      }
+      .article-header {
+        margin-bottom: 2rem;
+      }
+      .article-header h1 {
+        margin: 0;
+        font-size: clamp(2.75rem, 5vw, 4.5rem);
+      }
+      .article-meta {
+        color: rgb(var(--gray));
+        margin: 0.75rem 0 0;
+      }
+      .prose {
+        color: rgb(var(--gray-dark));
+        line-height: 1.85;
+      }
+      .prose h2,
+      .prose h3,
+      .prose h4 {
+        color: rgb(var(--black));
+      }
+      .prose a {
+        color: var(--accent);
+      }
+      .prose img {
+        max-width: 100%;
+      }
+      @media (max-width: 720px) {
+        main {
+          padding: 2rem 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <article>
+        <div class="article-header">
+          <div class="product-header">
+            {
+              icon && (
+                <div class="product-page-icon">
+                  <Image
+                    width={96}
+                    height={96}
+                    src={icon}
+                    alt={`${title} icon`}
+                  />
+                </div>
+              )
+            }
+            <div>
+              <h1>{title}</h1>
+              {description && <p>{description}</p>}
+              <p class="article-meta">
+                Published <time>{pubDate.toDateString()}</time>
+              </p>
+              {
+                updatedDate && (
+                  <p class="article-meta">
+                    Updated <time>{updatedDate.toDateString()}</time>
+                  </p>
+                )
+              }
+            </div>
+          </div>
+        </div>
+        {
+          heroImage && (
+            <div class="hero-image">
+              <Image width={1200} height={675} src={heroImage} alt={title} />
+            </div>
+          )
+        }
+        {
+          (playStoreLink || appStoreLink || windowsStoreLink) && (
+            <div class="store-links">
+              {playStoreLink && (
+                <a
+                  href={playStoreLink}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  <Image src={playStoreBadge} alt="Get it on Google Play" />
+                </a>
+              )}
+              {appStoreLink && (
+                <a
+                  href={appStoreLink}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  <Image src={appStoreBadge} alt="Download on the App Store" />
+                </a>
+              )}
+              {windowsStoreLink && (
+                <a
+                  href={windowsStoreLink}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  <Image
+                    src={windowsStoreBadge}
+                    alt="Get it from the Microsoft Store"
+                  />
+                </a>
+              )}
+            </div>
+          )
+        }
+        {
+          privacyPolicyLink && (
+            <>
+              <br />
+              <a class="privacy-link" href={privacyPolicyLink}>
+                Privacy Policy
+              </a>
+            </>
+          )
+        }
+        <div class="prose">
+          <slot />
+        </div>
+        {
+          screenshots && screenshots.length > 0 && (
+            <div class="screenshot-grid">
+              {screenshots.map((screenshot) => (
+                <div
+                  class="screenshot-card"
+                  data-image={screenshot.src}
+                  data-alt={title}
+                  role="button"
+                  tabindex="0"
+                  aria-label="Open screenshot"
+                >
+                  <Image key={screenshot.src} src={screenshot} alt={title} />
+                </div>
+              ))}
+            </div>
+          )
+        }
+        <div class="screenshot-modal" id="screenshotModal" aria-hidden="true">
+          <button
+            class="modal-close"
+            type="button"
+            aria-label="Close screenshot">×</button
+          >
+          <div class="screenshot-modal-inner">
+            <img id="screenshotModalImage" src="" alt="" />
+          </div>
+        </div>
+        <script type="module">
+          const modal = document.getElementById("screenshotModal");
+          const modalImage = document.getElementById("screenshotModalImage");
+          const closeButton = modal.querySelector(".modal-close");
+          const cards = document.querySelectorAll(".screenshot-card");
+          const openModal = (src, alt) => {
+            modalImage.src = src;
+            modalImage.alt = alt;
+            modal.classList.add("visible");
+            modal.setAttribute("aria-hidden", "false");
+          };
+          const closeModal = () => {
+            modal.classList.remove("visible");
+            modal.setAttribute("aria-hidden", "true");
+            modalImage.removeAttribute("src");
+          };
+          cards.forEach((card) => {
+            card.addEventListener("click", () =>
+              openModal(card.dataset.image, card.dataset.alt),
+            );
+            card.addEventListener("keydown", (event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                openModal(card.dataset.image, card.dataset.alt);
+              }
+            });
+          });
+          closeButton.addEventListener("click", closeModal);
+          modal.addEventListener("click", (event) => {
+            if (event.target === modal) closeModal();
+          });
+          document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape" && modal.classList.contains("visible"))
+              closeModal();
+          });
+        </script>
+      </article>
+    </main>
+    <Footer />
+  </body>
 </html>

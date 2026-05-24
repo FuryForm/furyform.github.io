@@ -20,7 +20,6 @@ const { Content } = await render(policy);
   <head>
     <BaseHead
       title={policy.data.title ?? `Privacy Policy — ${policy.id}`}
-      description={policy.data.description ?? 'Privacy policy'}
     />
     <style>
       main {
@@ -63,7 +62,6 @@ const { Content } = await render(policy);
       <article>
         <div class="article-header">
           <h1>{policy.data.title ?? 'Privacy Policy'}</h1>
-          {policy.data.description && <p>{policy.data.description}</p>}
         </div>
         <div class="prose">
           <Content />

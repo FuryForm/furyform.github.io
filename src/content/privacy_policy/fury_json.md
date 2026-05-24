@@ -1,5 +1,5 @@
 ---
-title: "FuryJSON Privacy Policy"
+title: "FuryJSON"
 description: "Privacy policy for FuryJSON."
 ---
 
