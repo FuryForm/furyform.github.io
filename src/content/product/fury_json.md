@@ -1,6 +1,6 @@
 ---
 title: "FuryJSON"
-description: "JSON Viewer & Editor with tree and text views, syntax highlighting, and offline-first privacy."
+description: "JSON Viewer & Editor with tree and raw text modes, syntax highlighting, and offline-first privacy."
 pubDate: "May 22 2026"
 heroImage: "../../assets/product/fury_json/feature_graphic.png"
 icon: "../../assets/product/fury_json/icon.png"
@@ -15,12 +15,16 @@ privacyPolicyLink: "/privacy/fury_json/"
 
 ## Key features
 
-- **Tree view**: browse JSON as a collapsible, editable node tree — expand/collapse, inspect and edit values inline.
-- **Text view**: raw JSON editor with syntax highlighting, undo/redo, and quick pretty-print (Format JSON).
-- **Two-way sync**: edits in tree or text mode stay in sync so you can work the way you prefer.
-- **Find & filter**: browser-style Find-in-Page (match count, prev/next) and realtime tree filtering.
-- **Open large files**: optimized to handle large JSON documents from local storage.
-- **Share & export**: share formatted JSON via Android share sheet. CSV export available as a Premium feature.
-- **Expression evaluator (Premium)**: run JSONata-style expressions (powered by the bundled Knata engine) to query and transform documents.
-- **Adaptive UI**: two-pane layout for tablets and landscape, edge-to-edge layout, and full dark/light theme support.
-- **Offline & private**: files are read from your device and are not uploaded unless you explicitly share or export them.
+- **JSON tree viewer**: browse objects and arrays as a collapsible node tree.
+- **Visual JSON editor**: edit values, keys and nodes directly from Tree View.
+- **Text JSON editor**: edit raw JSON with syntax highlighting and undo/redo.
+- **JSON formatter**: pretty-print and format JSON for easier reading.
+- **JSON validation**: detect invalid JSON before applying text edits.
+- **Search and filter**: find text matches and filter JSON tree nodes quickly.
+- **Large file support**: optimized editor engine for large JSON documents.
+- **Two-way editing**: switch between Tree View and Text View while keeping content in sync.
+- **Share and export**: share JSON files through the Android share sheet.
+- **CSV export [Premium]**: export JSON data to CSV.
+- **Expression evaluator [Premium]**: run JSONata-style expressions to query and transform JSON.
+- **Tablet friendly**: adaptive two-pane layout for tablets and landscape screens.
+- **Offline and private**: files stay on your device unless you choose to share or export them
