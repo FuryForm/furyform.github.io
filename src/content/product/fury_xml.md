@@ -24,7 +24,7 @@ privacyPolicyLink: "/privacy/fury_xml/"
 - **Large file support**: optimized editor engine for large XML documents.
 - **Two-way editing**: switch between Tree View and Text View while keeping content in sync.
 - **Share and export**: share XML files through the Android share sheet.
-- **JSON export**: export XML content as JSON.
+- **JSON export [Premium]**: export XML content as JSON.
 - **XPath expressions [Premium]**: run XPath-style queries to inspect XML data.
 - **Tablet friendly**: adaptive two-pane layout for tablets and landscape screens.
 - **Offline and private**: files stay on your device unless you choose to share, export or open from URL.
